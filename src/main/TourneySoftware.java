@@ -1,90 +1,108 @@
 package main;
 
-import java.lang.reflect.Field;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import data.Player;
 import data.Team;
 
 public class TourneySoftware {
-	
+	private static List<Player> DFs = new ArrayList<>();
+    private static List<Player> MFs = new ArrayList<>();
+    private static List<Player> FWs = new ArrayList<>();
+    private static List<Team> Teams = new ArrayList<>();
+    private static int teamAmount = 0;
+    
 	       public static void main (String[] args) {
+	    	    SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+	    	    List<Player> playerList = null;
+	    	    try { 
+	    	    	SAXParser saxParser = saxParserFactory.newSAXParser();
+	    	        ParsePlayersHandler handler = new ParsePlayersHandler();
+	    	        saxParser.parse(new File("src/data/Participants.xml"), handler);
+	    	        playerList = handler.getplayerList();
+	    	        for(Player p : playerList) {
+	    	        	switch(p.getRole()){
+	    	        	case "DF": 
+	    	        		DFs.add(p);
+	    	        		break;
+	    	        	case "MF":
+	    	        		MFs.add(p);
+	    	        		break;
+	    	        	case "FW":
+	    	        		FWs.add(p);
+	    	        		break;
+	    	        	}
+	    	        }
+
+	    	   } catch (Exception e) {
+	    	       e.printStackTrace();  
+	    	   }
 	    	   Settings settings = new Settings();
 	    	   settings.setTeamsize((byte) 4);
 	    	   settings.setStyle((byte) 1);
 	    	   settings.setSystem((byte) 1);
-	    	   Player[] players = new Player[2];//make this dynamic
-	    	   Scanner reader = new Scanner(System.in);
-	    	   for(int i=0; i<players.length; i++) {
-	    		   players[i] = new Player();
-	    		   createPlayer(players[i],reader);
+	    	   teamAmount = (int) Math.floor(playerList.size()/(int)settings.getTeamsize());
+	    	   for(int i=0; i<teamAmount; i++) {
+	    		   Teams.add(new Team(settings));
 	    	   }
-	    	   Team test = new Team(settings, players);
-	    	   System.out.println("Team ELO: "+ test.getElo());
-	    	   Team[] teams = new Team[1];//make this dynamic
-	    	   for(int i=0; i<(players.length/settings.getTeamsize())+1; i++) {
-	    		   teams[i] = new Team(settings, players);
-	    		   createTeam();//WORK IN PROGRESS
-	    	   }
-	    	   
-	    	   
-	    	   //the following for loop is just for testing
-	    	   for(int i=0; i<players.length; i++) {
-	    	   for (Field field : players[i].getClass().getDeclaredFields()) {
-	    		    field.setAccessible(true);
-	    		    String name = field.getName();
-	    		    Object value;
-					try {
-						value = field.get(players[i]);
-						 System.out.printf("%s: %s%n", name, value);
-					} catch (IllegalArgumentException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	    		}
-	    	   }
-	           reader.close();
+	    	   createTeams(settings);//TODO Fix balance
+	    	   for(int i = 0; i<Teams.size();i++) {
+	    		   System.out.println("Team "+(i+1)+"("+Teams.get(i).getElo()+" ELO):");
+	    		   for(int j = 0; j<(int)settings.teamsize;j++)
+	    			   System.out.println(Teams.get(i).getMembers().get(j).getName());
+	    	   }      
 	       }
 	       
-	       public static void createTeam() {
-	    	   
+	       public static void createTeams(Settings s) {
+	    	   //creating imbalanced teams atm, cuz im just adding them one after the other sorted by "strength"
+	    	   Player next;
+	    	   int x = 0;
+	    	   while(!DFs.isEmpty()) {
+	    		   if(x>teamAmount-1)
+	    			   x=0;
+	    		   next = strongest(DFs);
+	    		   if(next != null) {
+	    			   Teams.get(x).addPlayer(next);
+	    			   DFs.remove(next);
+	    			   x++;
+	    		   }
+	    	   }
+	    	   while(!MFs.isEmpty()) {
+	    		   if(x>teamAmount-1)
+	    			   x=0;
+	    		   next = strongest(MFs);
+	    		   if(next != null) {
+	    			   Teams.get(x).addPlayer(next);
+	    			   MFs.remove(next);
+	    			   x++;
+	    		   }
+	    	   }
+	    	   while(!FWs.isEmpty()) {
+	    		   if(x>teamAmount-1)
+	    			   x=0;
+	    		   next = strongest(FWs);
+	    		   if(next != null) {
+	    			   Teams.get(x).addPlayer(next);
+	    			   FWs.remove(next);
+	    			   x++;
+	    		   }
+	    	   }
 	       }
 	       
-	       public static void createPlayer(Player p, Scanner s) {
-	    	   p.setName(name(s));
-	    	   p.setPosition(position(s));
-	    	   p.setLevel(level(s));//only need to test for nonvalid input here since everything is else will be dropdown or a name
-	    	   p.setRating(rating(s)); 
-	    	   p.calculatePower();
-	       }
-	       public static String name (Scanner s) {
-	    	   System.out.println("Enter the characters name:");
-	    	   return s.next();
-	       }
-	       public static String position (Scanner s) {
-	    	   System.out.println("Enter the characters position:");
-	    	   return s.next();
-	       }
-	       public static Byte level (Scanner s) {
-	    	   System.out.println("Enter the characters level:");
-	    	   while(true) {
-	    	   try {
-	    		   byte x = s.nextByte();
-	    		   if(1<=x && x<= 60)
-	    		   return x;
+	       public static Player strongest(List<Player> players) {
+	    	   if(!players.isEmpty()) {
+	    	   Player strongest = players.get(0);
+	    	   for(int i=1 ; i<players.size() ; i++) {
+	    	      if (strongest.getPower()<players.get(i).getPower())
+	    	         strongest = players.get(i) ;
 	    	   }
-	    	   catch(InputMismatchException e) {
-	    		   String error = s.next();
-	    		   System.out.println(error+" is not a valid input.\n"+"Enter a level(1-60)!");
+	    	   return strongest;
 	    	   }
-	    	   }
+			return null;
 	       }
-	       public static Byte rating (Scanner s) {
-	    	   System.out.println("Enter the characters rating:");
-	    	   return s.nextByte();
-	       }
+	       
 }

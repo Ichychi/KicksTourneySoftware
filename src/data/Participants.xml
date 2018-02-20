@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><!--This is the file that has to be changed every tourney, according to the registrations.-->
+<players>
+   <player name = "_Daniel_">
+      <position>CB</position>
+      <level>53</level>
+      <rating>6</rating>
+   </player>
+      <player name = "lequeR">
+      <position>CB</position>
+      <level>47</level>
+      <rating>9</rating>
+   </player>
+      <player name = "Nips">
+      <position>CB</position>
+      <level>40</level>
+      <rating>5</rating>
+   </player>
+      <player name = "Defence">
+      <position>CB</position>
+      <level>56</level>
+      <rating>5</rating>
+   </player>
+      <player name = "Wootie">
+      <position>CB</position>
+      <level>48</level>
+      <rating>7</rating>
+   </player>
+      <player name = "AnneDF">
+      <position>CB</position>
+      <level>40</level>
+      <rating>10</rating>
+   </player>
+      <player name = "guardian">
+      <position>CB</position>
+      <level>52</level>
+      <rating>5</rating>
+   </player>
+      <player name = "Strider">
+      <position>SB</position>
+      <level>34</level>
+      <rating>4</rating>
+   </player>
+   <player name = "ch1z">
+      <position>CB</position>
+      <level>52</level>
+      <rating>4</rating>
+   </player>
+      <player name = "NeoZe">
+      <position>CB</position>
+      <level>20</level>
+      <rating>3</rating>
+   </player>
+      <player name = "Butcher">
+      <position>SW</position>
+      <level>55</level>
+      <rating>8</rating>
+   </player>
+      <player name = "Lien">
+      <position>CB</position>
+      <level>48</level>
+      <rating>6</rating>
+   </player>
+      <player name = "EvilDF">
+      <position>CB</position>
+      <level>58</level>
+      <rating>9</rating>
+   </player>
+      <player name = "Gearfried">
+      <position>SM</position>
+      <level>38</level>
+      <rating>4</rating>
+   </player>
+      <player name = "DissyMissLizzy">
+      <position>SM</position>
+      <level>35</level>
+      <rating>5</rating>
+   </player>
+      <player name = "Shadyy">
+      <position>CM</position>
+      <level>51</level>
+      <rating>4</rating>
+   </player>
+   <player name = "ArchAngel">
+      <position>AM</position>
+      <level>53</level>
+      <rating>8</rating>
+   </player>
+      <player name = "Yuffie">
+      <position>AM</position>
+      <level>52</level>
+      <rating>7</rating>
+   </player>
+      <player name = "Victor">
+      <position>SM</position>
+      <level>51</level>
+      <rating>6</rating>
+   </player>
+      <player name = "Kakunae">
+      <position>DM</position>
+      <level>32</level>
+      <rating>3</rating>
+   </player>
+      <player name = "Arthur">
+      <position>CM</position>
+      <level>28</level>
+      <rating>4</rating>
+   </player>
+      <player name = "Vesko_CM">
+      <position>CM</position>
+      <level>38</level>
+      <rating>5</rating>
+   </player>
+      <player name = "Lansy">
+      <position>CM</position>
+      <level>40</level>
+      <rating>5</rating>
+   </player>
+      <player name = "Rocket20">
+      <position>WF</position>
+      <level>34</level>
+      <rating>4</rating>
+   </player>
+   <player name = "Moreno69">
+      <position>CF</position>
+      <level>58</level>
+      <rating>9</rating>
+   </player>
+      <player name = "Higuain">
+      <position>CF</position>
+      <level>44</level>
+      <rating>4</rating>
+   </player>
+      <player name = "N">
+      <position>ST</position>
+      <level>45</level>
+      <rating>8</rating>
+   </player>
+      <player name = "Z.Ibra">
+      <position>ST</position>
+      <level>33</level>
+      <rating>3</rating>
+   </player>
+      <player name = "ChaosWinger">
+      <position>WF</position>
+      <level>33</level>
+      <rating>4</rating>
+   </player>
+      <player name = "Abyss">
+      <position>ST</position>
+      <level>54</level>
+      <rating>10</rating>
+   </player>
+      <player name = "Andrews">
+      <position>WF</position>
+      <level>52</level>
+      <rating>4</rating>
+   </player>
+      <player name = "badro">
+      <position>WF</position>
+      <level>49</level>
+      <rating>4</rating>
+   </player>
+   <player name = "TheHellSong">
+      <position>WF</position>
+      <level>52</level>
+      <rating>10</rating>
+   </player>
+      <player name = "Davidbeckhan">
+      <position>WF</position>
+      <level>44</level>
+      <rating>3</rating>
+   </player>
+      <player name = "Bestard">
+      <position>WF</position>
+      <level>37</level>
+      <rating>4</rating>
+   </player>
+      <player name = "M.Depay">
+      <position>CF</position>
+      <level>49</level>
+      <rating>9</rating>
+   </player>
+      <player name = "BlueFire">
+      <position>WF</position>
+      <level>55</level>
+      <rating>2</rating>
+   </player>
+</players>

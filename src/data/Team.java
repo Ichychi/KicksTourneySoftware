@@ -1,25 +1,42 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import main.Settings;
 
 public class Team {
-	byte size;//maybe wont need this
+	byte size;
 	int elo;
-	Player[] members;
+	List<Player> members;
+	byte current;
 	
-	public Team(Settings s,Player[] m){
+	public Team(Settings s){
 		this.size = s.getTeamsize();
-		this.members = m;
-		for(Player x : m) {
-			this.elo = this.elo + x.power;
-		}
+		this.members = new ArrayList<>();
+		this.current = 0;
+		this.elo = 0;
 	}
 
+	public void addPlayer(Player p) {
+		if(current < size) {
+			members.add(p);
+			current ++;
+		}	
+		else
+			System.out.println("Reserve Players: "+p.getName());
+	}
+	
 	public int getElo() {
+		for(Player x : members) {
+			elo += x.power;
+		}
 		return elo;
 	}
 
-	public Player[] getMembers() {
+	public List<Player> getMembers() {
 		return members;
 	}
+
+
 }
