@@ -25,11 +25,6 @@
       <level>48</level>
       <rating>7</rating>
    </player>
-      <player name = "AnneDF">
-      <position>CB</position>
-      <level>40</level>
-      <rating>10</rating>
-   </player>
       <player name = "guardian">
       <position>CB</position>
       <level>52</level>
@@ -80,6 +75,11 @@
       <level>51</level>
       <rating>4</rating>
    </player>
+   <player name = "M5">
+      <position>CM</position>
+      <level>52</level>
+      <rating>9</rating>
+   </player>
    <player name = "ArchAngel">
       <position>AM</position>
       <level>53</level>
@@ -108,11 +108,6 @@
       <player name = "Vesko_CM">
       <position>CM</position>
       <level>38</level>
-      <rating>5</rating>
-   </player>
-      <player name = "Lansy">
-      <position>CM</position>
-      <level>40</level>
       <rating>5</rating>
    </player>
       <player name = "Rocket20">

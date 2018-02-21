@@ -1,6 +1,7 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import main.Settings;
@@ -22,15 +23,17 @@ public class Team {
 		if(current < size) {
 			members.add(p);
 			current ++;
+			elo += p.power;
 		}	
 		else
 			System.out.println("Reserve Players: "+p.getName());
 	}
 	
+	public void sort() {
+		Collections.sort(members);
+	}
+	
 	public int getElo() {
-		for(Player x : members) {
-			elo += x.power;
-		}
 		return elo;
 	}
 

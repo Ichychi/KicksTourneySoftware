@@ -49,7 +49,8 @@ public class TourneySoftware {
 	    	   for(int i=0; i<teamAmount; i++) {
 	    		   Teams.add(new Team(settings));
 	    	   }
-	    	   createTeams(settings);//TODO Fix balance
+	    	   createTeams(settings);
+	    	   sortTeams(Teams);
 	    	   for(int i = 0; i<Teams.size();i++) {
 	    		   System.out.println("Team "+(i+1)+"("+Teams.get(i).getElo()+" ELO):");
 	    		   for(int j = 0; j<(int)settings.teamsize;j++)
@@ -58,51 +59,78 @@ public class TourneySoftware {
 	       }
 	       
 	       public static void createTeams(Settings s) {
-	    	   //creating imbalanced teams atm, cuz im just adding them one after the other sorted by "strength"
 	    	   Player next;
-	    	   int x = 0;
-	    	   while(!DFs.isEmpty()) {
-	    		   if(x>teamAmount-1)
-	    			   x=0;
-	    		   next = strongest(DFs);
+	    	   for(int i =0;i<teamAmount;i++){
+	    		   if(DFs.isEmpty()) {
+	    			   System.out.println("Not enough Defenders for "+teamAmount+" Teams");
+	    			   System.exit(0);
+	    		   }
+	    		   next = strongestPlayer(DFs);
 	    		   if(next != null) {
-	    			   Teams.get(x).addPlayer(next);
+	    			   Teams.get(i).addPlayer(next);
 	    			   DFs.remove(next);
-	    			   x++;
 	    		   }
-	    	   }
-	    	   while(!MFs.isEmpty()) {
-	    		   if(x>teamAmount-1)
-	    			   x=0;
-	    		   next = strongest(MFs);
+	    	   }    	  
+	    	   for(int i =0;i<teamAmount;i++){
+	    		   if(FWs.isEmpty()) {
+	    			   System.out.println("Not enough Forwards for "+teamAmount+" Teams");
+	    			   System.exit(0);
+    		       }
+	    		   next = strongestPlayer(FWs);
 	    		   if(next != null) {
-	    			   Teams.get(x).addPlayer(next);
-	    			   MFs.remove(next);
-	    			   x++;
-	    		   }
-	    	   }
-	    	   while(!FWs.isEmpty()) {
-	    		   if(x>teamAmount-1)
-	    			   x=0;
-	    		   next = strongest(FWs);
-	    		   if(next != null) {
-	    			   Teams.get(x).addPlayer(next);
+	    			   weakestTeam(Teams).addPlayer(next);
 	    			   FWs.remove(next);
-	    			   x++;
 	    		   }
+	    	   }
+	    	   for(int i =0;i<teamAmount;i++){
+	    		   if(MFs.isEmpty()) {
+	    			   System.out.println("Not enough Midfielders for "+teamAmount+" Teams");
+	    			   System.exit(0);
+	    		   }
+	    		   next = strongestPlayer(MFs);
+	    		   if(next != null) {
+	    			   weakestTeam(Teams).addPlayer(next);
+	    			   MFs.remove(next);
+	    		   }
+	    	   }
+	    	   List<Player> rest = new ArrayList<>();
+	    	   rest.addAll(DFs);
+	    	   rest.addAll(MFs);
+	    	   rest.addAll(FWs);
+	    	   while(!rest.isEmpty()) {	   
+	    			   weakestTeam(Teams).addPlayer(strongestPlayer(rest));
+	    			   rest.remove(strongestPlayer(rest));
 	    	   }
 	       }
 	       
-	       public static Player strongest(List<Player> players) {
+	       public static void sortTeams(List<Team> teams) {
+	    	   for(Team x : teams) {
+	    		   x.sort();
+	    	   }    	   
+	       }
+	       
+	       public static Player strongestPlayer(List<Player> players) {
 	    	   if(!players.isEmpty()) {
-	    	   Player strongest = players.get(0);
-	    	   for(int i=1 ; i<players.size() ; i++) {
-	    	      if (strongest.getPower()<players.get(i).getPower())
-	    	         strongest = players.get(i) ;
-	    	   }
-	    	   return strongest;
+	    		   Player strongest = players.get(0);
+	    		   for(int i=1 ; i<players.size() ; i++) {
+	    			   if (strongest.getPower()<players.get(i).getPower())
+	    				   strongest = players.get(i) ;
+	    		   }
+	    		   return strongest;
 	    	   }
 			return null;
+	       }
+	       
+	       public static Team weakestTeam(List<Team> teams) {
+	    	   if(!teams.isEmpty()) {
+	    		   Team weakest = teams.get(0);
+	    		   for(Team x : teams) {
+	    			   if(x.getElo()<weakest.getElo())
+	    				   weakest = x;
+	    		   }
+	    		   return weakest;
+	    	   }
+			return null;    	   
 	       }
 	       
 }

@@ -1,11 +1,12 @@
 package data;
-public class Player {
+public class Player implements Comparable<Player> {
 	String name;
 	String position;
 	byte level;
 	byte rating;
 	int power;
 	String role;
+	int sortValue;
 	
 	public String getName() {
 		return name;
@@ -45,20 +46,37 @@ public class Player {
 
 	public void calculatePower() {
 		//going to do a better calculation later on
-		this.power = (int) (level+Math.ceil(0.5*(rating/level)));
+		this.power = (int) (level*rating+5*rating);
 	}
 
 	public void setRole() {
 		String x = this.getPosition();
-		if(x.equals("ST")||x.equals("CF")||x.equals("WF"))
+		if(x.equals("ST")||x.equals("CF")||x.equals("WF")) {
 			this.role = "FW";
-		else if(x.equals("AM")||x.equals("SM")||x.equals("CM")||x.equals("DM"))
+			this.sortValue = 3;
+		}
+		else if(x.equals("AM")||x.equals("SM")||x.equals("CM")||x.equals("DM")) {
 			this.role = "MF";
-		else if(x.equals("SB")||x.equals("CB")||x.equals("SW"))
+			this.sortValue = 2;
+		}
+		else if(x.equals("SB")||x.equals("CB")||x.equals("SW")) {
 			this.role = "DF";
+			this.sortValue = 1;
+		}
 	}
+	
 	public String getRole() {
 		return role;
+	}
+
+	public int getSortValue() {
+		return sortValue;
+	}
+
+	@Override
+	public int compareTo(Player p) {
+		int compareage=((Player)p).getSortValue();
+        return this.sortValue-compareage;
 	}
 
 }
