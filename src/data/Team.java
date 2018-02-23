@@ -7,10 +7,10 @@ import java.util.List;
 import main.Settings;
 
 public class Team {
-	byte size;
-	int elo;
-	List<Player> members;
-	byte current;
+	private byte size;
+	private int elo;
+	private List<Player> members;
+	private byte current;
 	
 	public Team(Settings s){
 		this.size = s.getTeamsize();
@@ -23,7 +23,7 @@ public class Team {
 		if(current < size) {
 			members.add(p);
 			current ++;
-			elo += p.power;
+			elo += p.getPower();
 		}	
 		else
 			System.out.println("Reserve Players: "+p.getName());

@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.xml.sax.Attributes;
@@ -14,7 +15,8 @@ public class ParsePlayersHandler extends DefaultHandler {
     private Player player = null;
     
     public List<Player> getplayerList() {
-        return playerList;
+//        return playerList;
+        return Collections.unmodifiableList(playerList);
     }
 
     boolean bPos = false;

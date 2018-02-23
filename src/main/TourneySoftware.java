@@ -53,17 +53,21 @@ public class TourneySoftware {
 	    	   sortTeams(Teams);
 	    	   for(int i = 0; i<Teams.size();i++) {
 	    		   System.out.println("Team "+(i+1)+"("+Teams.get(i).getElo()+" ELO):");
-	    		   for(int j = 0; j<(int)settings.teamsize;j++)
-	    			   System.out.println(Teams.get(i).getMembers().get(j).getName());
-	    	   }      
+	    		   for(int j = 0; j<(int)settings.teamsize;j++) {
+	    			   System.out.println(Teams.get(i).getMembers().get(j).getName() + " -- " + 
+	    					   Teams.get(i).getMembers().get(j).getLevel() + "lv -- " + 
+	    					   Teams.get(i).getMembers().get(j).getPosition());
+	    	   } 
+	    		   System.out.println();
+	    	   }
 	       }
 	       
 	       public static void createTeams(Settings s) {
 	    	   Player next;
-	    	   for(int i =0;i<teamAmount;i++){
+	    	   for(int i = 0; i < teamAmount; i++){
 	    		   if(DFs.isEmpty()) {
 	    			   System.out.println("Not enough Defenders for "+teamAmount+" Teams");
-	    			   System.exit(0);
+	    			   return;
 	    		   }
 	    		   next = strongestPlayer(DFs);
 	    		   if(next != null) {
@@ -74,7 +78,7 @@ public class TourneySoftware {
 	    	   for(int i =0;i<teamAmount;i++){
 	    		   if(FWs.isEmpty()) {
 	    			   System.out.println("Not enough Forwards for "+teamAmount+" Teams");
-	    			   System.exit(0);
+	    			   return;
     		       }
 	    		   next = strongestPlayer(FWs);
 	    		   if(next != null) {
@@ -85,7 +89,7 @@ public class TourneySoftware {
 	    	   for(int i =0;i<teamAmount;i++){
 	    		   if(MFs.isEmpty()) {
 	    			   System.out.println("Not enough Midfielders for "+teamAmount+" Teams");
-	    			   System.exit(0);
+	    			   return;
 	    		   }
 	    		   next = strongestPlayer(MFs);
 	    		   if(next != null) {

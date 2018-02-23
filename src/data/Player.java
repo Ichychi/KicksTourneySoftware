@@ -1,12 +1,12 @@
 package data;
 public class Player implements Comparable<Player> {
-	String name;
-	String position;
-	byte level;
-	byte rating;
-	int power;
-	String role;
-	int sortValue;
+	private String name;
+	private String position;
+	private byte level;
+	private byte rating;
+	private int power;
+	private String role;
+	private int sortValue;
 	
 	public String getName() {
 		return name;
