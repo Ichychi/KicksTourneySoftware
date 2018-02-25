@@ -1,5 +1,6 @@
 package data;
 public class Player implements Comparable<Player> {
+	
 	private String name;
 	private String position;
 	private byte level;
@@ -77,6 +78,11 @@ public class Player implements Comparable<Player> {
 	public int compareTo(Player p) {
 		int compareage=((Player)p).getSortValue();
         return this.sortValue-compareage;
+	}
+	
+	@Override
+	public String toString() {
+		return name + " " + level + "LV " + position;
 	}
 
 }

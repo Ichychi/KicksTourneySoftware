@@ -38,8 +38,12 @@ public class Team {
 	}
 
 	public List<Player> getMembers() {
-		return members;
+		return Collections.unmodifiableList(members);
 	}
 
+	@Override
+	public String toString() {
+		return members.toString() + " ";
+	}
 
 }
