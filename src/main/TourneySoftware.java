@@ -49,5 +49,6 @@ public class TourneySoftware {
 		Utils.sortTeams();
 		Utils.printTeams(settings);
 		Utils.createGroups();
+		Utils.generateFixures();
 	}
 }

@@ -88,10 +88,7 @@ public abstract class Utils {
 				teamsCopy.remove(index);
 				break;
 			}
-			if (groups.get("Group " + (randomGroup + 1)).size() == teamsInGroup) { //if the teams in the group are equal to the variable teamsInGroup
-				//we skip one iteration
-				continue;
-			} else { //else we add a team to its group
+			if (groups.get("Group " + (randomGroup + 1)).size() != teamsInGroup) { //we add the team to a random group
 				groups.get("Group " + (randomGroup + 1)).add(t);
 				teamsCopy.remove(index);
 			}
@@ -99,13 +96,30 @@ public abstract class Utils {
 		printGroups(groups);
 	}
 	
-	public static void printGroups(LinkedHashMap<String, ArrayList<Team>> prGroups) {
+	private static void printGroups(LinkedHashMap<String, ArrayList<Team>> prGroups) {
+		System.out.println("GROUPS: ");
 		for (Entry<String, ArrayList<Team>> entry : prGroups.entrySet()) {
 			System.out.println(entry.getKey());
 			ArrayList<Team> teamsToPrint = entry.getValue();
 			for (int i = 0; i < teamsToPrint.size(); i++) {
-				System.out.println(teamsToPrint.get(i));
+				System.out.println("Team " + (i + 1) + teamsToPrint.get(i));
 			}
+			System.out.println();
+		}
+	}
+	
+	public static void generateFixures() {
+		LinkedHashMap<String, ArrayList<String>> fixtures = new LinkedHashMap<>();
+		System.out.println("FIXTURES:");
+		for (Entry<String, ArrayList<Team>> entry : groups.entrySet()) {
+			System.out.println(entry.getKey() + " fixtures: (HOME / AWAY)");
+			ArrayList<Team> teamsToPrint = entry.getValue();
+			for (int i = 0; i < teamsToPrint.size(); i++) {
+				for (int j = i+1; j < teamsToPrint.size(); j++) {
+					System.out.println("TEAM " + (i+1) + " vs TEAM " + (j+1) + " / TEAM " + (j+1) + " vs TEAM" + (i+1));
+				}
+			}
+			System.out.println();
 		}
 	}
 	
