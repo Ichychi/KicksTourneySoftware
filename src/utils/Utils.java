@@ -1,15 +1,19 @@
 package utils;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Map.Entry;
+
 
 import data.Player;
 import data.Team;
 import main.Settings;
+import data.Match;
 
 public abstract class Utils {
 	
@@ -30,6 +34,17 @@ public abstract class Utils {
 		}
 	}
 	
+	public static void setOutput(PrintStream p, String s) {
+		if(s == "DEBUG") {		
+		}
+		else
+		System.setOut(p);
+	}
+	
+	public static void tryMatch(Scanner s) {
+		new Match(s, teams.get(0), teams.get(1));
+		
+	}
 	public static List<Player> getDFs() {
 		return Collections.unmodifiableList(DFs);
 	}
@@ -102,14 +117,14 @@ public abstract class Utils {
 			System.out.println(entry.getKey());
 			ArrayList<Team> teamsToPrint = entry.getValue();
 			for (int i = 0; i < teamsToPrint.size(); i++) {
-				System.out.println("Team " + (i + 1) + teamsToPrint.get(i));
+				System.out.println("Team " + (i + 1) + " "+ teamsToPrint.get(i));
 			}
 			System.out.println();
 		}
 	}
 	
 	public static void generateFixures() {
-		LinkedHashMap<String, ArrayList<String>> fixtures = new LinkedHashMap<>();
+		//LinkedHashMap<String, ArrayList<String>> fixtures = new LinkedHashMap<>();
 		System.out.println("FIXTURES:");
 		for (Entry<String, ArrayList<Team>> entry : groups.entrySet()) {
 			System.out.println(entry.getKey() + " fixtures: (HOME / AWAY)");
@@ -200,10 +215,10 @@ public abstract class Utils {
 	
 	public static void printTeams(Settings settings) {
 		for (int i = 0; i < Utils.getTeams().size(); i++) {
-			System.out.println("Team " + (i + 1) + "(" + Utils.getTeams().get(i).getElo() + " ELO):");
+			System.out.println("Team " + (i + 1) + " (" + Utils.getTeams().get(i).getElo() + " ELO):");
 			for (int j = 0; j < (int) settings.getTeamsize(); j++) {
-				System.out.println(Utils.getTeams().get(i).getMembers().get(j).getName() + " -- "
-						+ Utils.getTeams().get(i).getMembers().get(j).getLevel() + "lv -- "
+				System.out.println(Utils.getTeams().get(i).getMembers().get(j).getName() + " - Level: "
+						+ Utils.getTeams().get(i).getMembers().get(j).getLevel() + " - Position: "
 						+ Utils.getTeams().get(i).getMembers().get(j).getPosition());
 			}
 			System.out.println();

@@ -82,7 +82,7 @@ public class Player implements Comparable<Player> {
 	
 	@Override
 	public String toString() {
-		return name + " " + level + "LV " + position;
+		return name;// + " - " + level + " - " + position;
 	}
 
 }

@@ -1,7 +1,9 @@
 package main;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -14,8 +16,12 @@ public class TourneySoftware {
 
 	public static void main(String[] args) {
 		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+		Scanner scanner = null;//TODO remove scanner for a better input possibility
+		PrintStream pw = null;
 		List<Player> playerList = null;
 		try {
+			pw = new PrintStream("src/output.txt");
+			scanner = new Scanner(System.in);
 			SAXParser saxParser = saxParserFactory.newSAXParser();
 			ParsePlayersHandler handler = new ParsePlayersHandler();
 			saxParser.parse(new File("src/data/Participants.xml"), handler);
@@ -45,10 +51,13 @@ public class TourneySoftware {
 		for (int i = 0; i < Utils.getTeamAmount(); i++) {
 			Utils.addTeam(new Team(settings));
 		}
+		Utils.setOutput(pw,"DEBUG");//TODO change DEBUG to smth else when the program is finished
 		Utils.createTeams(settings);
 		Utils.sortTeams();
 		Utils.printTeams(settings);
 		Utils.createGroups();
 		Utils.generateFixures();
+		Utils.tryMatch(scanner);
+		pw.close();
 	}
 }
